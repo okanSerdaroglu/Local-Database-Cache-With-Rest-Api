@@ -13,6 +13,7 @@ import android.support.v7.widget.Toolbar;
 
 import com.okanserdaroglu.foodrecipes.adapters.OnRecipeListener;
 import com.okanserdaroglu.foodrecipes.adapters.RecipeRecyclerAdapter;
+import com.okanserdaroglu.foodrecipes.util.Resource;
 import com.okanserdaroglu.foodrecipes.util.VerticalSpacingItemDecorator;
 import com.okanserdaroglu.foodrecipes.viewmodels.RecipeListViewModel;
 
@@ -39,6 +40,9 @@ public class RecipeListActivity extends BaseActivity implements OnRecipeListener
         initSearchView();
         setSupportActionBar((Toolbar) findViewById(R.id.toolbar));
         subscribeObservers();
+
+        Resource<String> resource =
+                new Resource<>(Resource.Status.ERROR,"type","some message");
     }
 
     private void displaySearchCategories() {
