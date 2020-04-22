@@ -50,7 +50,7 @@ public abstract class NetworkBoundResource<CacheObject, RequestObject> {
             }
         });
     }
-    
+
     private void setValue (Resource<CacheObject>newValue){
         if (results.getValue() != newValue){
             results.setValue(newValue);
