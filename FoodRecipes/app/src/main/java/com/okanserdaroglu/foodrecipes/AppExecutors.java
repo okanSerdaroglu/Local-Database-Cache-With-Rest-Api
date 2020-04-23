@@ -11,7 +11,7 @@ public class AppExecutors {
     private static AppExecutors instance;
 
     private final Executor diskIO = Executors.newSingleThreadExecutor();
-    
+
     private final Executor mainThreadExecutor = new MainThreadExecutor();
 
     public static AppExecutors getInstance() {
