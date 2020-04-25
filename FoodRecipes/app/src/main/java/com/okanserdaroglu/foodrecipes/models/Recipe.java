@@ -35,6 +35,34 @@ public class Recipe implements Parcelable {
     @ColumnInfo(name = "timeStamp")
     private int timeStamp;
 
+    @NonNull
+    public String getRecipe_id() {
+        return recipe_id;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public String getPublisher() {
+        return publisher;
+    }
+
+    public String getImage_url() {
+        return image_url;
+    }
+
+    public float getSocial_rank() {
+        return social_rank;
+    }
+
+    public String[] getIngredients() {
+        return ingredients;
+    }
+
+    public int getTimeStamp() {
+        return timeStamp;
+    }
 
     protected Recipe(Parcel in) {
         recipe_id = in.readString();
