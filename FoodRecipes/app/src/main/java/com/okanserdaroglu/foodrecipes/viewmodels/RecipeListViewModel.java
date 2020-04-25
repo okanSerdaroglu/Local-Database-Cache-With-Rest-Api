@@ -50,6 +50,10 @@ public class RecipeListViewModel extends AndroidViewModel {
         return pageNumber;
     }
 
+    public void setViewCategories(){
+        viewStateMutableLiveData.setValue(ViewState.CATEGORIES);
+    }
+
 
     private void init() {
         if (viewStateMutableLiveData == null) {

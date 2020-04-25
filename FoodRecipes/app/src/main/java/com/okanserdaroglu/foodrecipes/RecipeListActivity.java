@@ -181,6 +181,15 @@ public class RecipeListActivity extends BaseActivity implements OnRecipeListener
         searchRecipesAPI(category);
     }
 
+    @Override
+    public void onBackPressed() {
+        if (mRecipeListViewModel.getViewStateMutableLiveData().getValue()
+                == RecipeListViewModel.ViewState.CATEGORIES) {
+            super.onBackPressed();
+        } else {
+            mRecipeListViewModel.setViewCategories();
+        }
+    }
 }
 
 
