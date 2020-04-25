@@ -3,6 +3,7 @@ package com.okanserdaroglu.foodrecipes;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.SearchView;
@@ -16,11 +17,12 @@ import com.okanserdaroglu.foodrecipes.adapters.OnRecipeListener;
 import com.okanserdaroglu.foodrecipes.adapters.RecipeRecyclerAdapter;
 import com.okanserdaroglu.foodrecipes.models.Recipe;
 import com.okanserdaroglu.foodrecipes.util.Resource;
-import com.okanserdaroglu.foodrecipes.util.Testing;
 import com.okanserdaroglu.foodrecipes.util.VerticalSpacingItemDecorator;
 import com.okanserdaroglu.foodrecipes.viewmodels.RecipeListViewModel;
 
 import java.util.List;
+
+import static com.okanserdaroglu.foodrecipes.viewmodels.RecipeListViewModel.QUERY_EXHAUSTED;
 
 
 public class RecipeListActivity extends BaseActivity implements OnRecipeListener {
@@ -61,8 +63,37 @@ public class RecipeListActivity extends BaseActivity implements OnRecipeListener
                 if (listResource != null){
                     Log.d(TAG,"onChanged: status: " + listResource.status);
                     if (listResource.data != null){
-                        mAdapter.setRecipes(listResource.data);
-                        //Testing.printRecipes(listResource.data,"data");
+                       switch (listResource.status){
+                           case LOADING:{
+                               if (mRecipeListViewModel.getPageNumber() > 1){
+                                   mAdapter.displayLoading();
+                               } else {
+                                   mAdapter.displayOnlyLoading();
+                               }
+                               break;
+                           }
+                           case ERROR:{
+                               Log.e(TAG,"onChanged :  cannot refresh the cache");
+                               Log.e(TAG,"onChanged : Error message : " + listResource.message);
+                               Log.e(TAG,"onChanged : status: Error, #recipes" + listResource.data.size());
+                               mAdapter.hideLoading();
+                               mAdapter.setRecipes(listResource.data);
+                               Toast.makeText(RecipeListActivity.this,listResource.message,Toast.LENGTH_LONG).show();
+
+                               if (listResource.message.equals(QUERY_EXHAUSTED)){
+                                   mAdapter.setQueryExhausted();
+                               }
+                               break;
+                           }
+                           case SUCCESS:{
+                               Log.e(TAG,"onChanged :  cannot cache has been refresh");
+                               Log.e(TAG,"onChanged : status: Success, #Recipes " + listResource.data.size());
+                               mAdapter.hideLoading();
+                               mAdapter.setRecipes(listResource.data);
+                               break;
+
+                           }
+                       }
                     }
                 }
             }
