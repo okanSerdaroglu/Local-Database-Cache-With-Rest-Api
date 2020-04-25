@@ -1,15 +1,15 @@
 package com.okanserdaroglu.foodrecipes;
 
-import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v7.widget.AppCompatImageView;
 import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
+import androidx.annotation.Nullable;
+import androidx.appcompat.widget.AppCompatImageView;
+import androidx.lifecycle.ViewModelProviders;
 
 import com.okanserdaroglu.foodrecipes.models.Recipe;
 import com.okanserdaroglu.foodrecipes.viewmodels.RecipeViewModel;

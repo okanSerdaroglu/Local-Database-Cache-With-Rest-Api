@@ -1,21 +1,14 @@
 package com.okanserdaroglu.foodrecipes.viewmodels;
 
-
 import android.app.Application;
-import android.arch.lifecycle.AndroidViewModel;
-import android.support.annotation.NonNull;
-
+import androidx.annotation.NonNull;
+import androidx.lifecycle.AndroidViewModel;
 
 public class RecipeViewModel extends AndroidViewModel {
 
-
     public RecipeViewModel(@NonNull Application application) {
         super(application);
-
     }
-
-
-
 }
 
 

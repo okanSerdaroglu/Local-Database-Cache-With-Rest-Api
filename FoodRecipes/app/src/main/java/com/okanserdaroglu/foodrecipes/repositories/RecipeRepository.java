@@ -1,10 +1,11 @@
 package com.okanserdaroglu.foodrecipes.repositories;
 
-import android.arch.lifecycle.LiveData;
 import android.content.Context;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.util.Log;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.lifecycle.LiveData;
 
 import com.okanserdaroglu.foodrecipes.AppExecutors;
 import com.okanserdaroglu.foodrecipes.models.Recipe;
@@ -46,7 +47,7 @@ public class RecipeRepository {
                 if (item.getRecipes() != null) {
                     Recipe[] recipes = new Recipe[item.getRecipes().size()];
                     int index = 0;
-                    for (long rowId : recipeDao.insertRecipes((Recipe[]) (item.getRecipes().toArray(recipes)))) {
+                    for (long rowId : recipeDao.insertRecipes((item.getRecipes().toArray(recipes)))) {
                         if (rowId == -1) {
                             Log.d(TAG, "saveCallResult: Conflict... This recipe is already in cache");
                             // if the recipe already exists ...

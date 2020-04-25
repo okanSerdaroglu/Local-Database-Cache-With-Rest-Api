@@ -1,8 +1,6 @@
 package com.okanserdaroglu.foodrecipes.persistance;
 
-
-import android.arch.lifecycle.LiveData;
-
+import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Insert;
 import androidx.room.Query;
@@ -33,6 +31,6 @@ public interface RecipeDao {
     LiveData<List<Recipe>> searchRecipes (String query,int pageNumber);
 
    @Query("SELECT * FROM recipes WHERE recipe_id = :recipe_id")
-   LiveData<Recipe>getRecipe(String recipe_id);
+   LiveData<Recipe> getRecipe(String recipe_id);
 
 }

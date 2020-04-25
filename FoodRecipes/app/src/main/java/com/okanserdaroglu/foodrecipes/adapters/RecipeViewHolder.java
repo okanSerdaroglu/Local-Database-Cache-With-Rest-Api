@@ -1,10 +1,11 @@
 package com.okanserdaroglu.foodrecipes.adapters;
 
-import android.support.annotation.NonNull;
-import android.support.v7.widget.AppCompatImageView;
-import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.widget.AppCompatImageView;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.okanserdaroglu.foodrecipes.R;
 

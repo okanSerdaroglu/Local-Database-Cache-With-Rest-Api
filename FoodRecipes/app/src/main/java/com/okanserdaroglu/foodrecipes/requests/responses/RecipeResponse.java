@@ -1,6 +1,7 @@
 package com.okanserdaroglu.foodrecipes.requests.responses;
 
-import android.support.annotation.Nullable;
+
+import androidx.annotation.Nullable;
 
 import com.okanserdaroglu.foodrecipes.models.Recipe;
 import com.google.gson.annotations.Expose;

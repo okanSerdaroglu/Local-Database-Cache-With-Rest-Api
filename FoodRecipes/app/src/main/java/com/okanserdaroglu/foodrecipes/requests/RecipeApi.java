@@ -1,6 +1,6 @@
 package com.okanserdaroglu.foodrecipes.requests;
 
-import android.arch.lifecycle.LiveData;
+import androidx.lifecycle.LiveData;
 
 import com.okanserdaroglu.foodrecipes.requests.responses.ApiResponse;
 import com.okanserdaroglu.foodrecipes.requests.responses.RecipeResponse;

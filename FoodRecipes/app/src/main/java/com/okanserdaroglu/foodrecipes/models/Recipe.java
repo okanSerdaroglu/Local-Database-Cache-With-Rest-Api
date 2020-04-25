@@ -2,8 +2,8 @@ package com.okanserdaroglu.foodrecipes.models;
 
 import android.os.Parcel;
 import android.os.Parcelable;
-import android.support.annotation.NonNull;
 
+import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
@@ -32,8 +32,39 @@ public class Recipe implements Parcelable {
     @ColumnInfo(name = "ingredients")
     private String[] ingredients;
 
+    public void setRecipe_id(@NonNull String recipe_id) {
+        this.recipe_id = recipe_id;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public void setPublisher(String publisher) {
+        this.publisher = publisher;
+    }
+
+    public void setImage_url(String image_url) {
+        this.image_url = image_url;
+    }
+
+    public void setSocial_rank(float social_rank) {
+        this.social_rank = social_rank;
+    }
+
+    public void setIngredients(String[] ingredients) {
+        this.ingredients = ingredients;
+    }
+
+    public void setTimeStamp(int timeStamp) {
+        this.timeStamp = timeStamp;
+    }
+
     @ColumnInfo(name = "timeStamp")
     private int timeStamp;
+
+    public Recipe() {
+    }
 
     @NonNull
     public String getRecipe_id() {
@@ -100,6 +131,7 @@ public class Recipe implements Parcelable {
     public int describeContents() {
         return 0;
     }
+
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {

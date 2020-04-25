@@ -1,21 +1,26 @@
 package com.okanserdaroglu.foodrecipes;
 
-import android.arch.lifecycle.Observer;
-import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.SearchView;
-import android.support.v7.widget.Toolbar;
+import android.util.Log;
 
+import androidx.annotation.Nullable;
+import androidx.appcompat.widget.SearchView;
+import androidx.appcompat.widget.Toolbar;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.okanserdaroglu.foodrecipes.adapters.OnRecipeListener;
 import com.okanserdaroglu.foodrecipes.adapters.RecipeRecyclerAdapter;
+import com.okanserdaroglu.foodrecipes.models.Recipe;
 import com.okanserdaroglu.foodrecipes.util.Resource;
+import com.okanserdaroglu.foodrecipes.util.Testing;
 import com.okanserdaroglu.foodrecipes.util.VerticalSpacingItemDecorator;
 import com.okanserdaroglu.foodrecipes.viewmodels.RecipeListViewModel;
+
+import java.util.List;
 
 
 public class RecipeListActivity extends BaseActivity implements OnRecipeListener {
@@ -50,6 +55,17 @@ public class RecipeListActivity extends BaseActivity implements OnRecipeListener
     }
 
     private void subscribeObservers() {
+        mRecipeListViewModel.getRecipes().observe(this, new Observer<Resource<List<Recipe>>>() {
+            @Override
+            public void onChanged(@Nullable Resource<List<Recipe>> listResource) {
+                if (listResource != null){
+                    Log.d(TAG,"onChanged: status: " + listResource.status);
+                    if (listResource.data != null){
+                        Testing.printRecipes(listResource.data,"data");
+                    }
+                }
+            }
+        });
         mRecipeListViewModel.getViewStateMutableLiveData().observe(this, new Observer<RecipeListViewModel.ViewState>() {
             @Override
             public void onChanged(@Nullable RecipeListViewModel.ViewState viewState) {
@@ -68,6 +84,10 @@ public class RecipeListActivity extends BaseActivity implements OnRecipeListener
         });
     }
 
+    private void searchRecipesAPI (String query){
+        mRecipeListViewModel.searchRecipesApi(query,1);
+    }
+
     private void initRecyclerView() {
         mAdapter = new RecipeRecyclerAdapter(this);
         VerticalSpacingItemDecorator itemDecorator = new VerticalSpacingItemDecorator(30);
@@ -80,7 +100,7 @@ public class RecipeListActivity extends BaseActivity implements OnRecipeListener
         mSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String s) {
-
+                searchRecipesAPI(s);
 
                 return false;
             }
@@ -101,7 +121,7 @@ public class RecipeListActivity extends BaseActivity implements OnRecipeListener
 
     @Override
     public void onCategoryClick(String category) {
-
+        searchRecipesAPI(category);
     }
 
 }

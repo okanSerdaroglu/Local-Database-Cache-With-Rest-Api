@@ -1,13 +1,14 @@
 package com.okanserdaroglu.foodrecipes.util;
 
-import android.arch.lifecycle.LiveData;
-import android.arch.lifecycle.MediatorLiveData;
-import android.arch.lifecycle.Observer;
-import android.support.annotation.MainThread;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.annotation.WorkerThread;
+import androidx.annotation.MainThread;
+import androidx.annotation.WorkerThread;
+import androidx.lifecycle.LiveData;
 import android.util.Log;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.lifecycle.MediatorLiveData;
+import androidx.lifecycle.Observer;
 
 import com.okanserdaroglu.foodrecipes.AppExecutors;
 import com.okanserdaroglu.foodrecipes.requests.responses.ApiResponse;
