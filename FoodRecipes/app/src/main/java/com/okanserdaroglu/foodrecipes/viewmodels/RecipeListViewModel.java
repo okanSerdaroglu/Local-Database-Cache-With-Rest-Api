@@ -34,6 +34,7 @@ public class RecipeListViewModel extends AndroidViewModel {
     private int pageNumber;
     private String query;
     private boolean cancelRequest;
+    private long requestStartTime;
 
     public LiveData<ViewState> getViewStateMutableLiveData() {
         return viewStateMutableLiveData;
@@ -87,6 +88,7 @@ public class RecipeListViewModel extends AndroidViewModel {
     }
 
     private void executeSearch() {
+        requestStartTime = System.currentTimeMillis();
         cancelRequest = false;
         isPerformingQuery = true;
         viewStateMutableLiveData.setValue(ViewState.RECIPES);
@@ -99,6 +101,8 @@ public class RecipeListViewModel extends AndroidViewModel {
                     if (listResource != null) {
                         recipes.setValue(listResource);
                         if (listResource.status == Resource.Status.SUCCESS) {
+                            Log.d(TAG, "onChanged: Request Time: "
+                                    + (System.currentTimeMillis() -requestStartTime)/1000 + " seconds");
                             isPerformingQuery = false;
                             if (listResource.data != null) {
                                 if (listResource.data.size() == 0) {
