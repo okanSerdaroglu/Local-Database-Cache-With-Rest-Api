@@ -31,7 +31,7 @@ public interface RecipeDao {
     @Query("SELECT * FROM recipes WHERE title LIKE '%' || :query ||'%' OR ingredients LIKE '%' || '%' " +
            "ORDER BY social_rank DESC LIMIT (:pageNumber * 30)")
     LiveData<List<Recipe>> searchRecipes (String query,int pageNumber);
-    
+
    @Query("SELECT * FROM recipes WHERE recipe_id = :recipe_id")
    LiveData<Recipe>getRecipe(String recipe_id);
 
