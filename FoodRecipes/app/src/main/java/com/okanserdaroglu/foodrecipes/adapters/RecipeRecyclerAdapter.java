@@ -8,9 +8,7 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bumptech.glide.Glide;
 import com.bumptech.glide.RequestManager;
-import com.bumptech.glide.request.RequestOptions;
 import com.okanserdaroglu.foodrecipes.R;
 import com.okanserdaroglu.foodrecipes.models.Recipe;
 import com.okanserdaroglu.foodrecipes.util.Constants;
@@ -29,7 +27,7 @@ public class RecipeRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.Vie
     private OnRecipeListener mOnRecipeListener;
     private RequestManager requestManager;
 
-    public RecipeRecyclerAdapter(OnRecipeListener mOnRecipeListener,RequestManager requestManager) {
+    public RecipeRecyclerAdapter(OnRecipeListener mOnRecipeListener, RequestManager requestManager) {
         this.mOnRecipeListener = mOnRecipeListener;
         this.requestManager = requestManager;
     }
@@ -53,12 +51,12 @@ public class RecipeRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.Vie
 
             case CATEGORY_TYPE: {
                 view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.layout_category_list_item, viewGroup, false);
-                return new CategoryViewHolder(view, mOnRecipeListener,requestManager);
+                return new CategoryViewHolder(view, mOnRecipeListener, requestManager);
             }
 
             default: {
                 view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.layout_recipe_list_item, viewGroup, false);
-                return new RecipeViewHolder(view, mOnRecipeListener,requestManager);
+                return new RecipeViewHolder(view, mOnRecipeListener, requestManager);
             }
         }
 
@@ -72,18 +70,18 @@ public class RecipeRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.Vie
         Recipe recipe = mRecipes.get(i);
         if (itemViewType == RECIPE_TYPE) {
 
-            ((RecipeViewHolder)viewHolder).onBind(recipe);
+            ((RecipeViewHolder) viewHolder).onBind(recipe);
 
         } else if (itemViewType == CATEGORY_TYPE) {
 
-            ((CategoryViewHolder)viewHolder).onBind(recipe);
+            ((CategoryViewHolder) viewHolder).onBind(recipe);
 
         }
 
     }
 
     // display loading during search request
-    public void displayOnlyLoading (){
+    public void displayOnlyLoading() {
         clearRecipeList();
         Recipe recipe = new Recipe();
         recipe.setTitle("LOADING...");
@@ -91,8 +89,8 @@ public class RecipeRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.Vie
         notifyDataSetChanged();
     }
 
-    private void clearRecipeList (){
-        if (mRecipes == null){
+    private void clearRecipeList() {
+        if (mRecipes == null) {
             mRecipes = new ArrayList<>();
         } else {
             mRecipes.clear();
@@ -123,10 +121,10 @@ public class RecipeRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.Vie
 
     public void hideLoading() {
         if (isLoading()) {
-            if (mRecipes.get(0).getTitle().equals("LOADING...")){
+            if (mRecipes.get(0).getTitle().equals("LOADING...")) {
                 mRecipes.remove(0);
-            } else if (mRecipes.get(mRecipes.size()-1).getTitle().equals("LOADING...")) {
-                notifyDataSetChanged();
+            } else if (mRecipes.get(mRecipes.size() - 1).getTitle().equals("LOADING...")) {
+                mRecipes.remove(mRecipes.size() - 1);
             }
             notifyDataSetChanged();
         }
@@ -134,10 +132,10 @@ public class RecipeRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.Vie
 
     // pagination
     public void displayLoading() {
-        if (mRecipes == null){
+        if (mRecipes == null) {
             mRecipes = new ArrayList<>();
         }
-        if (!isLoading()){
+        if (!isLoading()) {
             Recipe recipe = new Recipe();
             recipe.setTitle("LOADING...");
             mRecipes.add(recipe);

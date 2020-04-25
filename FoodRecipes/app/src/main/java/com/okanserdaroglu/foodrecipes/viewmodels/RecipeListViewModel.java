@@ -81,7 +81,7 @@ public class RecipeListViewModel extends AndroidViewModel {
     }
 
     public void searchNextPage() {
-        if (!isQueryExhausted && isPerformingQuery) {
+        if (!isQueryExhausted && !isPerformingQuery) {
             pageNumber++;
             executeSearch();
         }
@@ -102,7 +102,7 @@ public class RecipeListViewModel extends AndroidViewModel {
                         recipes.setValue(listResource);
                         if (listResource.status == Resource.Status.SUCCESS) {
                             Log.d(TAG, "onChanged: Request Time: "
-                                    + (System.currentTimeMillis() -requestStartTime)/1000 + " seconds");
+                                    + (System.currentTimeMillis() - requestStartTime) / 1000 + " seconds");
                             isPerformingQuery = false;
                             if (listResource.data != null) {
                                 if (listResource.data.size() == 0) {
@@ -130,6 +130,7 @@ public class RecipeListViewModel extends AndroidViewModel {
     public void cancelSearchRequest() {
         if (isPerformingQuery) {
             Log.d(TAG, "cancelSearchRequest: cancelling the search request");
+            cancelRequest = true;
             isPerformingQuery = false;
             pageNumber = 1;
         }

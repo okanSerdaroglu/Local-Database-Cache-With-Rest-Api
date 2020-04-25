@@ -47,10 +47,10 @@ public class RecipeListActivity extends BaseActivity implements OnRecipeListener
 
         mRecipeListViewModel = ViewModelProviders.of(this).get(RecipeListViewModel.class);
 
+        subscribeObservers();
         initRecyclerView();
         initSearchView();
         setSupportActionBar((Toolbar) findViewById(R.id.toolbar));
-        subscribeObservers();
 
         Resource<String> resource =
                 new Resource<>(Resource.Status.ERROR, "type", "some message");
@@ -90,9 +90,8 @@ public class RecipeListActivity extends BaseActivity implements OnRecipeListener
                                 break;
                             }
                             case SUCCESS: {
-                                Log.e(TAG, "onChanged :  cannot cache has been refresh");
+                                Log.e(TAG, "onChanged : cache has been refreshed");
                                 Log.e(TAG, "onChanged : status: Success, #Recipes " + listResource.data.size());
-                                mAdapter.hideLoading();
                                 mAdapter.setRecipes(listResource.data);
                                 break;
 

@@ -79,6 +79,7 @@ public class RecipeRepository {
             @NonNull
             @Override
             protected LiveData<ApiResponse<RecipeSearchResponse>> createCall() {
+                Log.d(TAG, "createCall: query : " + query);
                 return ServiceGenerator.getRecipeApi().
                         searchRecipe(query, String.valueOf(pageNumber));
             }

@@ -24,7 +24,7 @@ public class ServiceGenerator {
     private static Retrofit.Builder retrofitBuilder =
             new Retrofit.Builder()
                     .baseUrl(Constants.BASE_URL)
-                    .client(okHttpClient)
+                    //.client(okHttpClient)
                     .addCallAdapterFactory(new LiveDataCallAdapterFactory())
                     .addConverterFactory(GsonConverterFactory.create());
 
