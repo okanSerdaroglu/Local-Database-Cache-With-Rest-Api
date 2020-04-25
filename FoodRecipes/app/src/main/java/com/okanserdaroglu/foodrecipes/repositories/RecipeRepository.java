@@ -9,6 +9,7 @@ import com.okanserdaroglu.foodrecipes.AppExecutors;
 import com.okanserdaroglu.foodrecipes.models.Recipe;
 import com.okanserdaroglu.foodrecipes.persistance.RecipeDao;
 import com.okanserdaroglu.foodrecipes.persistance.RecipeDatabase;
+import com.okanserdaroglu.foodrecipes.requests.ServiceGenerator;
 import com.okanserdaroglu.foodrecipes.requests.responses.ApiResponse;
 import com.okanserdaroglu.foodrecipes.requests.responses.RecipeSearchResponse;
 import com.okanserdaroglu.foodrecipes.util.NetworkBoundResource;
@@ -51,13 +52,14 @@ public class RecipeRepository {
             @NonNull
             @Override
             protected LiveData<List<Recipe>> loadFromDb() {
-                return recipeDao.searchRecipes(query,pageNumber);
+                return recipeDao.searchRecipes(query, pageNumber);
             }
 
             @NonNull
             @Override
             protected LiveData<ApiResponse<RecipeSearchResponse>> createCall() {
-                return null;
+                return ServiceGenerator.getRecipeApi().
+                        searchRecipe(query, String.valueOf(pageNumber));
             }
         }.getAsLiveData();
     }
