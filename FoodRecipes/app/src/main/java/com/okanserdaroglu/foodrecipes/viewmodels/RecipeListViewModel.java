@@ -110,13 +110,18 @@ public class RecipeListViewModel extends AndroidViewModel {
                                     recipes.setValue(new
                                             Resource<List<Recipe>>(Resource.Status.ERROR,
                                             listResource.data, QUERY_EXHAUSTED));
+                                    isQueryExhausted = true;
                                 }
                             }
                             recipes.removeSource(repositorySource);
                         } else if (listResource.status == Resource.Status.ERROR) {
                             isPerformingQuery = false;
+                            if (listResource.message.equals(QUERY_EXHAUSTED)){
+                                isQueryExhausted = true;
+                            }
                             recipes.removeSource(repositorySource);
                         }
+                        recipes.setValue(listResource);
                     } else {
                         recipes.removeSource(repositorySource);
                     }

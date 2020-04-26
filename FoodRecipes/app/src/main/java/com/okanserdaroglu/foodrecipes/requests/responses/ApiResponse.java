@@ -4,6 +4,8 @@ import java.io.IOException;
 
 import retrofit2.Response;
 
+import static com.okanserdaroglu.foodrecipes.viewmodels.RecipeListViewModel.QUERY_EXHAUSTED;
+
 public class ApiResponse<T> {
 
     public ApiResponse<T> create(Throwable error){
@@ -15,6 +17,11 @@ public class ApiResponse<T> {
     public ApiResponse<T> create (Response<T>response){
         if (response.isSuccessful()){
             T body = response.body();
+            if (body instanceof RecipeSearchResponse){
+                if (((RecipeSearchResponse) body).getCount() == 0){
+                    return new ApiErrorResponse<>(QUERY_EXHAUSTED);
+                }
+            }
             if (body == null || response.code() == 204){ // 204 means empty response code
                 return new ApiEmptyResponse<>();
             }else {
